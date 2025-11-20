@@ -1,18 +1,135 @@
 ---
+import Navbar from "@/components/Navbar.astro";
 import Layout from "@/layouts/Layout.astro";
 
+const alphabet = Array.from({ length: 26 }, (_, i) =>
+  String.fromCharCode(65 + i),
+);
+
+const answer = "United Kingdom";
+const answerWords = answer.toUpperCase().split(" ");
 ---
+
 <Layout>
-  <!-- Game screen start -->
+  <main class="flex h-full w-full flex-col">
+    <Navbar title="Countries" isHPVislble={true} />
 
-  Movies/TV Shows/Countries/Capital Cities/Animals/Sports
+    <div
+      class="answer-section flex w-full flex-1 flex-col justify-center gap-4"
+    >
+      {
+        answerWords.map((word) => (
+          <div class="flex justify-center gap-2">
+            {Array.from(word).map((letter) => (
+              <button
+                class="text-preset-8 rounded-2xl bg-blue-600 px-4 py-2 text-white hover:cursor-pointer disabled:bg-blue-600/20"
+                disabled
+              >
+                {letter}
+              </button>
+            ))}
+          </div>
+        ))
+      }
+    </div>
 
-  a b c d e f g h i j k l m n o p q r s t u v w x y z
+    <div
+      class="pick-up-section grid flex-1 grid-cols-9 items-center gap-2 p-12"
+    >
+      {
+        alphabet.map((v) => (
+          <button
+            class="text-preset-8 rounded-2xl border border-solid border-black bg-white p-4 text-indigo-600 duration-150 hover:scale-[1.05] hover:bg-white/80 disabled:bg-white/80"
+            disabled
+          >
+            {v}
+          </button>
+        ))
+      }
+    </div>
 
-  Paused/You Win/You Lose
+    <button
+      id="open-dialog"
+      class="bg-gradient-3 text-preset-8 mx-auto mb-8 rounded-2xl px-6 py-3 text-white duration-150 hover:scale-[1.05]"
+      >Open</button
+    >
 
-  Continue
-  Play again!
-  New category
-  Quit game
+    <dialog id="main-dialog" class="relative bg-indigo-600 px-8 py-20">
+      <h2
+        class="text-preset-3 text-gradient-2 text-stroke text-stroke-4 text-stroke-color-243041 absolute -top-16 left-1/2 -translate-x-1/2"
+      >
+        Paused
+      </h2>
+      <div class="flex w-full flex-col gap-4">
+        <button
+          class="text-preset-9 shadow-inner-btn2 rounded-2xl bg-blue-600 py-3 text-white uppercase hover:bg-blue-600/90"
+          >Continue</button
+        >
+        <button
+          class="text-preset-9 shadow-inner-btn2 rounded-2xl bg-blue-600 py-3 text-white uppercase hover:bg-blue-600/90"
+          >Play Again</button
+        >
+        <button
+          class="text-preset-9 shadow-inner-btn2 rounded-2xl bg-blue-600 py-3 text-white uppercase hover:bg-blue-600/90"
+          >New Category</button
+        >
+        <button
+          class="bg-gradient-3 text-preset-9 rounded-2xl py-3 text-white uppercase duration-150 hover:scale-[1.02]"
+          >Quit Game</button
+        >
+      </div>
+    </dialog>
+  </main>
 </Layout>
+
+<style>
+  dialog {
+    border: none;
+    border-radius: 16px;
+    max-width: 440px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease-out;
+    margin: auto;
+    overflow: visible;
+  }
+
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  const dialog = document.getElementById(
+    "main-dialog",
+  ) as HTMLDialogElement | null;
+  const gameHelper = document.getElementById("game-helper");
+
+  const openBtn = document.getElementById("open-dialog");
+
+  openBtn?.addEventListener("click", () => dialog?.showModal());
+
+  dialog?.addEventListener("click", (event) => {
+    // Check if the click happened directly on the dialog element
+    const dialogDimensions = dialog.getBoundingClientRect();
+    if (
+      event.clientX < dialogDimensions.left ||
+      event.clientX > dialogDimensions.right ||
+      event.clientY < dialogDimensions.top ||
+      event.clientY > dialogDimensions.bottom
+    ) {
+      dialog.close();
+    }
+  });
+</script>

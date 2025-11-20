@@ -1,0 +1,36 @@
+---
+import Icon from "./Icon.astro";
+import clsx from "clsx";
+import play from "@/assets/images/icon-play.svg";
+import back from "@/assets/images/icon-back.svg";
+import heart from "@/assets/images/icon-heart.svg";
+import menu from "@/assets/images/icon-menu.svg";
+
+interface Props {
+  variant: "play" | "back" | "heart" | "menu";
+  class?: string;
+}
+
+const { variant, class: className = "", ...props } = Astro.props;
+
+const iconMap = {
+  play,
+  back,
+  heart,
+  menu,
+};
+
+const altMap = {
+  play: "play icon",
+  back: "back icon",
+  heart: "heart icon",
+  menu: "menu icon",
+};
+
+const baseClasses =
+  "p-4 rounded-full bg-gradient-3 shadow-inner-btn hover:scale-[1.05] duration-150";
+---
+
+<button class={clsx(baseClasses, className)} {...props}>
+  <Icon src={iconMap[variant]} alt={altMap[variant]} />
+</button>

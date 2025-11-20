@@ -1,25 +1,48 @@
 ---
+import IconButton from "@/components/IconButton.astro";
+import Navbar from "@/components/Navbar.astro";
+import StepCard from "@/components/StepCard.astro";
 import Layout from "@/layouts/Layout.astro";
+
+const STEPS = {
+  "01": {
+    title: "Choose a category",
+    description:
+      "First, choose a word category, like animals or movies. The computer then randomly selects a secret word from that topic and shows you blanks for each letter of the word.",
+  },
+  "02": {
+    title: "Guess letters",
+    description:
+      "Take turns guessing letters. The computer fills in the relevant blank spaces if your guess is correct. If it's  wrong, you lose some health, which empties after eight incorrect guesses.",
+  },
+  "03": {
+    title: "Win or lose",
+    description:
+      "You win by guessing all the letters in the word before your health runs out. If the health bar empties before you guess the word, you lose.",
+  },
+};
+
+const stepsArray = Object.entries(STEPS);
 ---
+
 <Layout>
-<h1>How to Play</h1>
+  <Navbar title="How to Play" />
 
-01
-Choose a category
-First, choose a word category, like animals or movies. 
-The computer then randomly selects a secret word from that 
-topic and shows you blanks for each letter of the word.
-
-02
-Guess letters
-Take turns guessing letters. The computer fills in the 
-relevant blank spaces if your guess is correct. If it's 
-wrong, you lose some health, which empties after eight 
-incorrect guesses.
-
-03
-Win or lose
-You win by guessing all the letters in the word before your 
-health runs out. If the health bar empties before you guess 
-the word, you lose.
+  <div class="grid grid-cols-1 gap-4 p-20 md:grid-cols-3">
+    {
+      stepsArray.map(([step, data]) => (
+        <div class="flex flex-row items-center justify-start gap-8 rounded-4xl border border-solid border-black bg-white p-8 md:flex-col">
+          <div class="text-preset-4 mb-4 text-blue-600">{step}</div>
+          <div>
+            <h2 class="text-preset-6 mb-4 text-center text-indigo-600">
+              {data.title}
+            </h2>
+            <p class="text-preset-9 text-center text-indigo-600">
+              {data.description}
+            </p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
 </Layout>

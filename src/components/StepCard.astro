@@ -1,0 +1,16 @@
+---
+interface Props {
+  step: string;
+  title: string;
+  description: string;
+  class?: string;
+}
+
+const { step, title, description, class: className = "" } = Astro.props;
+---
+
+<div class={`bg-gradient-1 shadow-inner-bg rounded-4xl p-8 ${className}`}>
+  <div class="text-preset-6 mb-4 text-white">Step {step}</div>
+  <h2 class="text-preset-5 mb-4 text-white">{title}</h2>
+  <p class="text-preset-11 text-white">{description}</p>
+</div>

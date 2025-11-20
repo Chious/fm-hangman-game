@@ -1,18 +1,29 @@
 ---
-import Layout from '@/layouts/Layout.astro';
+import Layout from "@/layouts/Layout.astro";
+import Button from "@/components/Button.astro";
+import IconButton from "@/components/IconButton.astro";
+import logo from "@/assets/images/logo.svg";
+import { Image } from "astro:assets";
 ---
 
 <Layout>
-	How to play
+  <main class="flex h-screen w-screen flex-col items-center justify-center">
+    <div
+      class="bg-gradient-1 shadow-inner-bg relative container flex w-4/5 max-w-[600px] flex-col items-center justify-center gap-8 rounded-4xl px-8 py-20"
+    >
+      <Image
+        src={logo}
+        alt="logo"
+        class="absolute bottom-4/5 left-1/2 -translate-x-1/2"
+      />
 
-	  <!-- Pick a category start -->
+      <a href="/pick" rel="no-referer noopener">
+        <IconButton variant="play" class="p-12" />
+      </a>
 
-	  Pick a Category
-
-	  Movies
-	  TV Shows
-	  Countries
-	  Capital Cities
-	  Animals
-	  Sports
+      <a href="tutorial" rel="no-referer noopener">
+        <Button variant="primary">How to play</Button>
+      </a>
+    </div>
+  </main>
 </Layout>

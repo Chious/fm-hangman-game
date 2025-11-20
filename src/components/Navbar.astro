@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+import IconButton from "./IconButton.astro";
+import heart from "@/assets/images/icon-heart.svg";
+
+interface Props {
+  title: string;
+  isHPVislble?: boolean;
+}
+
+const { title, isHPVislble = false } = Astro.props;
+---
+
+<nav class="flex w-full items-center justify-between gap-4 p-4">
+  <a href="/" rel="no-referer noopener">
+    <IconButton
+      variant="back"
+      class="hover:scale-[1.05] hover:cursor-pointer"
+    />
+  </a>
+  <h1
+    class="text-preset-4 md:text-preset-4 lg:text-preset-1 text-gradient-2 flex-1 stroke-slate-600 text-center"
+  >
+    {title || ""}
+  </h1>
+  {
+    isHPVislble && (
+      <div class="flex w-60 items-center gap-4">
+        <div class="flex-1 rounded-2xl bg-white p-2">
+          <div class="h-3 rounded-full bg-indigo-600" style="width: 70%" />
+        </div>
+        <Image src={heart} alt="remaining lives" loading="eager" />
+      </div>
+    )
+  }
+</nav>

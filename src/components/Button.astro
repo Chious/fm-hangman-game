@@ -1,0 +1,23 @@
+---
+import clsx from "clsx";
+
+interface Props {
+  variant?: "primary" | "secondary";
+  class?: string;
+}
+
+const { variant = "primary", class: className = "", ...props } = Astro.props;
+
+const variantClasses = {
+  primary:
+    "text-preset-8 text-white bg-blue-600 rounded-2xl shadow-inner-btn2 hover:scale-[1.05] duration-150 px-8 py-0.5",
+  secondary:
+    "text-preset-8 text-white bg-blue-600 rounded-2xl shadow-inner-btn2 hover:scale-[1.05] duration-150 px-8 py-0.5",
+};
+
+const baseClasses = variantClasses[variant] || variantClasses.primary;
+---
+
+<button class={clsx(baseClasses, className)} {...props}>
+  <slot />
+</button>
