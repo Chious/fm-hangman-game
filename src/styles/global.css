@@ -1,0 +1,298 @@
+/* Font Face Declarations */
+@font-face {
+  font-family: "Mouse Memoirs";
+  src: url("/fonts/MouseMemoirs-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@import "tailwindcss";
+
+:root {
+  /* Gradients */
+  --gradient-1: linear-gradient(180deg, #344abaff 0%, #001479cc 100%);
+  --gradient-2: linear-gradient(171.45deg, #67b6ffff 0%, #ffffffff 100%);
+  --gradient-3: linear-gradient(180deg, #fe71feff 0%, #7199ffff 100%);
+  --gradient-4: linear-gradient(180deg, #ff95ffff 0%, #a3aeffff 100%);
+  --gradient-5: linear-gradient(
+    180deg,
+    #1a043aff 0%,
+    #151278ff 70%,
+    #2b1677ff 100%
+  );
+
+  /* Colors - Neutral */
+  --color-neutral-0: #ffffffff;
+  --color-neutral-950: #000000ff;
+
+  /* Colors - Slate */
+  --color-slate-600: #243041ff;
+  --color-slate-950: #0b1524ff;
+
+  /* Colors - Blue */
+  --color-blue-500: #5b8affff;
+  --color-blue-600: #2463ffff;
+
+  /* Colors - Indigo */
+  --color-indigo-400: #887dc0ff;
+  --color-indigo-600: #261676ff;
+
+  /* Spacing */
+  --spacing-0: 0px;
+  --spacing-100: 8px;
+  --spacing-150: 12px;
+  --spacing-200: 16px;
+  --spacing-300: 24px;
+  --spacing-400: 32px;
+  --spacing-500: 40px;
+  --spacing-600: 48px;
+  --spacing-625: 50px;
+  --spacing-700: 56px;
+  --spacing-750: 60px;
+  --spacing-800: 64px;
+
+  /* Corner Radius */
+  --radius-0: 0px;
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-20: 20px;
+  --radius-24: 24px;
+  --radius-32: 32px;
+  --radius-40: 40px;
+  --radius-48: 48px;
+  --radius-72: 72px;
+  --radius-96: 96px;
+  --radius-full: 999px;
+
+  /* Typography - Text Preset 1 */
+  --text-preset-1-font-size: 136px;
+  --text-preset-1-font-family: "Mouse Memoirs", sans-serif;
+  --text-preset-1-font-weight: 400;
+  --text-preset-1-font-style: normal;
+  --text-preset-1-letter-spacing: -1px;
+  --text-preset-1-line-height: 163.2px;
+  --text-preset-1-text-case: none;
+
+  /* Typography - Text Preset 2 */
+  --text-preset-2-font-size: 104px;
+  --text-preset-2-font-family: "Mouse Memoirs", sans-serif;
+  --text-preset-2-font-weight: 400;
+  --text-preset-2-font-style: normal;
+  --text-preset-2-letter-spacing: -1px;
+  --text-preset-2-line-height: 124.8px;
+  --text-preset-2-text-case: none;
+
+  /* Typography - Text Preset 3 */
+  --text-preset-3-font-size: 94px;
+  --text-preset-3-font-family: "Mouse Memoirs", sans-serif;
+  --text-preset-3-font-weight: 400;
+  --text-preset-3-font-style: normal;
+  --text-preset-3-letter-spacing: -1px;
+  --text-preset-3-line-height: 112.8px;
+  --text-preset-3-text-case: none;
+
+  /* Typography - Text Preset 4 */
+  --text-preset-4-font-size: 88px;
+  --text-preset-4-font-family: "Mouse Memoirs", sans-serif;
+  --text-preset-4-font-weight: 400;
+  --text-preset-4-font-style: normal;
+  --text-preset-4-letter-spacing: 0px;
+  --text-preset-4-line-height: 105.6px;
+  --text-preset-4-text-case: none;
+
+  /* Typography - Text Preset 5 */
+  --text-preset-5-font-size: 64px;
+  --text-preset-5-font-family: "Mouse Memoirs", sans-serif;
+  --text-preset-5-font-weight: 400;
+  --text-preset-5-font-style: normal;
+  --text-preset-5-letter-spacing: 2.5px;
+  --text-preset-5-line-height: 76.8px;
+  --text-preset-5-text-case: none;
+
+  /* Typography - Text Preset 6 */
+  --text-preset-6-font-size: 48px;
+  --text-preset-6-font-family: "Mouse Memoirs", sans-serif;
+  --text-preset-6-font-weight: 400;
+  --text-preset-6-font-style: normal;
+  --text-preset-6-letter-spacing: 2.5px;
+  --text-preset-6-line-height: 57.6px;
+  --text-preset-6-text-case: uppercase;
+
+  /* Typography - Text Preset 7 */
+  --text-preset-7-font-size: 40px;
+  --text-preset-7-font-family: "Mouse Memoirs", sans-serif;
+  --text-preset-7-font-weight: 400;
+  --text-preset-7-font-style: normal;
+  --text-preset-7-letter-spacing: 1.75px;
+  --text-preset-7-line-height: 48px;
+  --text-preset-7-text-case: uppercase;
+
+  /* Typography - Text Preset 8 */
+  --text-preset-8-font-size: 32px;
+  --text-preset-8-font-family: "Mouse Memoirs", sans-serif;
+  --text-preset-8-font-weight: 400;
+  --text-preset-8-font-style: normal;
+  --text-preset-8-letter-spacing: 1.75px;
+  --text-preset-8-line-height: 38.4px;
+  --text-preset-8-text-case: uppercase;
+
+  /* Typography - Text Preset 9 */
+  --text-preset-9-font-size: 26px;
+  --text-preset-9-font-family: "Mouse Memoirs", sans-serif;
+  --text-preset-9-font-weight: 400;
+  --text-preset-9-font-style: normal;
+  --text-preset-9-letter-spacing: 0.75px;
+  --text-preset-9-line-height: 31.2px;
+  --text-preset-9-text-case: none;
+
+  /* Typography - Text Preset 10 */
+  --text-preset-10-font-size: 24px;
+  --text-preset-10-font-family: "Mouse Memoirs", sans-serif;
+  --text-preset-10-font-weight: 400;
+  --text-preset-10-font-style: normal;
+  --text-preset-10-letter-spacing: 0.75px;
+  --text-preset-10-line-height: 28.8px;
+  --text-preset-10-text-case: uppercase;
+
+  /* Typography - Text Preset 11 */
+  --text-preset-11-font-size: 20px;
+  --text-preset-11-font-family: "Mouse Memoirs", sans-serif;
+  --text-preset-11-font-weight: 400;
+  --text-preset-11-font-style: normal;
+  --text-preset-11-letter-spacing: 0.75px;
+  --text-preset-11-line-height: 24px;
+  --text-preset-11-text-case: none;
+
+  /* Typography - Text Preset 12 */
+  --text-preset-12-font-size: 16px;
+  --text-preset-12-font-family: "Mouse Memoirs", sans-serif;
+  --text-preset-12-font-weight: 400;
+  --text-preset-12-font-style: normal;
+  --text-preset-12-letter-spacing: 0.75px;
+  --text-preset-12-line-height: 19.2px;
+  --text-preset-12-text-case: none;
+}
+
+/* Typography utility classes */
+.text-preset-1 {
+  font-size: var(--text-preset-1-font-size);
+  font-family: var(--text-preset-1-font-family);
+  font-weight: var(--text-preset-1-font-weight);
+  font-style: var(--text-preset-1-font-style);
+  letter-spacing: var(--text-preset-1-letter-spacing);
+  line-height: var(--text-preset-1-line-height);
+  text-transform: var(--text-preset-1-text-case);
+}
+
+.text-preset-2 {
+  font-size: var(--text-preset-2-font-size);
+  font-family: var(--text-preset-2-font-family);
+  font-weight: var(--text-preset-2-font-weight);
+  font-style: var(--text-preset-2-font-style);
+  letter-spacing: var(--text-preset-2-letter-spacing);
+  line-height: var(--text-preset-2-line-height);
+  text-transform: var(--text-preset-2-text-case);
+}
+
+.text-preset-3 {
+  font-size: var(--text-preset-3-font-size);
+  font-family: var(--text-preset-3-font-family);
+  font-weight: var(--text-preset-3-font-weight);
+  font-style: var(--text-preset-3-font-style);
+  letter-spacing: var(--text-preset-3-letter-spacing);
+  line-height: var(--text-preset-3-line-height);
+  text-transform: var(--text-preset-3-text-case);
+}
+
+.text-preset-4 {
+  font-size: var(--text-preset-4-font-size);
+  font-family: var(--text-preset-4-font-family);
+  font-weight: var(--text-preset-4-font-weight);
+  font-style: var(--text-preset-4-font-style);
+  letter-spacing: var(--text-preset-4-letter-spacing);
+  line-height: var(--text-preset-4-line-height);
+  text-transform: var(--text-preset-4-text-case);
+}
+
+.text-preset-5 {
+  font-size: var(--text-preset-5-font-size);
+  font-family: var(--text-preset-5-font-family);
+  font-weight: var(--text-preset-5-font-weight);
+  font-style: var(--text-preset-5-font-style);
+  letter-spacing: var(--text-preset-5-letter-spacing);
+  line-height: var(--text-preset-5-line-height);
+  text-transform: var(--text-preset-5-text-case);
+}
+
+.text-preset-6 {
+  font-size: var(--text-preset-6-font-size);
+  font-family: var(--text-preset-6-font-family);
+  font-weight: var(--text-preset-6-font-weight);
+  font-style: var(--text-preset-6-font-style);
+  letter-spacing: var(--text-preset-6-letter-spacing);
+  line-height: var(--text-preset-6-line-height);
+  text-transform: var(--text-preset-6-text-case);
+}
+
+.text-preset-7 {
+  font-size: var(--text-preset-7-font-size);
+  font-family: var(--text-preset-7-font-family);
+  font-weight: var(--text-preset-7-font-weight);
+  font-style: var(--text-preset-7-font-style);
+  letter-spacing: var(--text-preset-7-letter-spacing);
+  line-height: var(--text-preset-7-line-height);
+  text-transform: var(--text-preset-7-text-case);
+}
+
+.text-preset-8 {
+  font-size: var(--text-preset-8-font-size);
+  font-family: var(--text-preset-8-font-family);
+  font-weight: var(--text-preset-8-font-weight);
+  font-style: var(--text-preset-8-font-style);
+  letter-spacing: var(--text-preset-8-letter-spacing);
+  line-height: var(--text-preset-8-line-height);
+  text-transform: var(--text-preset-8-text-case);
+}
+
+.text-preset-9 {
+  font-size: var(--text-preset-9-font-size);
+  font-family: var(--text-preset-9-font-family);
+  font-weight: var(--text-preset-9-font-weight);
+  font-style: var(--text-preset-9-font-style);
+  letter-spacing: var(--text-preset-9-letter-spacing);
+  line-height: var(--text-preset-9-line-height);
+  text-transform: var(--text-preset-9-text-case);
+}
+
+.text-preset-10 {
+  font-size: var(--text-preset-10-font-size);
+  font-family: var(--text-preset-10-font-family);
+  font-weight: var(--text-preset-10-font-weight);
+  font-style: var(--text-preset-10-font-style);
+  letter-spacing: var(--text-preset-10-letter-spacing);
+  line-height: var(--text-preset-10-line-height);
+  text-transform: var(--text-preset-10-text-case);
+}
+
+.text-preset-11 {
+  font-size: var(--text-preset-11-font-size);
+  font-family: var(--text-preset-11-font-family);
+  font-weight: var(--text-preset-11-font-weight);
+  font-style: var(--text-preset-11-font-style);
+  letter-spacing: var(--text-preset-11-letter-spacing);
+  line-height: var(--text-preset-11-line-height);
+  text-transform: var(--text-preset-11-text-case);
+}
+
+.text-preset-12 {
+  font-size: var(--text-preset-12-font-size);
+  font-family: var(--text-preset-12-font-family);
+  font-weight: var(--text-preset-12-font-weight);
+  font-style: var(--text-preset-12-font-style);
+  letter-spacing: var(--text-preset-12-letter-spacing);
+  line-height: var(--text-preset-12-line-height);
+  text-transform: var(--text-preset-12-text-case);
+}
