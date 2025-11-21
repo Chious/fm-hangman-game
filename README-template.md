@@ -315,3 +315,15 @@ export function handleLetterPick(letter: string) {
 ## Author
 
 - Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
+
+## Reference
+
+**Sound Effect**
+
+1. dead.ogg by Yoshicakes77 -- https://freesound.org/s/703542/ -- License: Attribution 4.0
+
+2. Success2.wav by Kagateni -- https://freesound.org/s/404359/ -- License: Creative Commons 0
+
+3. 8 bit game loop 004 only drums short 120 bpm.wav by josefpres -- https://freesound.org/s/653803/ -- License: Creative Commons 0
+
+4. Wrong Choice by unadamlar -- https://freesound.org/s/476177/ -- License: Creative Commons 0

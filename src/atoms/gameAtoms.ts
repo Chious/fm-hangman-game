@@ -1,6 +1,7 @@
 import { atom } from "nanostores";
+import { playPreloadedSound } from "./soundAtoms";
 
-export type GamePhase = "idle" | "playing" | "win" | "lose";
+export type GamePhase = "idle" | "playing" | "win" | "lose" | "revealing";
 
 // Initialize atoms with default values
 export const categoryAtom = atom<string>("");
@@ -8,6 +9,8 @@ export const answerAtom = atom<string>("");
 export const chosenLettersAtom = atom<Set<string>>(new Set());
 export const hpAtom = atom<number>(6);
 export const gamePhaseAtom = atom<GamePhase>("idle");
+export const lastPickResultAtom = atom<"correct" | "wrong" | null>(null);
+export const lastPickedLetterAtom = atom<string | null>(null);
 
 export function resetGameState() {
   categoryAtom.set("");
@@ -15,6 +18,8 @@ export function resetGameState() {
   chosenLettersAtom.set(new Set());
   hpAtom.set(6);
   gamePhaseAtom.set("idle");
+  lastPickResultAtom.set(null);
+  lastPickedLetterAtom.set(null);
 }
 
 /**
@@ -44,25 +49,75 @@ export function handleLetterPick(letter: string) {
   newChosen.add(normalizedLetter);
   chosenLettersAtom.set(newChosen);
 
+  // Track the last picked letter for animation
+  lastPickedLetterAtom.set(normalizedLetter);
+
   // Check if letter is in answer
   const answer = answerAtom.get().toLowerCase();
   const isCorrect = answer.includes(normalizedLetter);
 
   if (!isCorrect) {
     // Wrong guess - decrease HP
+    lastPickResultAtom.set("wrong");
+    playPreloadedSound("wrong");
+
     const currentHp = hpAtom.get();
     const newHp = Math.max(0, currentHp - 1);
     hpAtom.set(newHp);
 
     // Check lose condition
     if (newHp === 0) {
-      gamePhaseAtom.set("lose");
+      // Reveal answer before showing lose dialog
+      revealAnswerThenSetPhase("lose");
       return;
     }
+
+    // Reset the last pick result after animation
+    setTimeout(() => {
+      lastPickResultAtom.set(null);
+      lastPickedLetterAtom.set(null);
+    }, 600);
+  } else {
+    // Correct guess
+    lastPickResultAtom.set("correct");
+    playPreloadedSound("success");
+
+    // Reset the last pick result after animation
+    setTimeout(() => {
+      lastPickResultAtom.set(null);
+      lastPickedLetterAtom.set(null);
+    }, 600);
   }
 
   // Check win condition - all letters in answer are found
   checkWinCondition();
+}
+
+/**
+ * Reveal the answer briefly before transitioning to win/lose phase
+ */
+function revealAnswerThenSetPhase(phase: "win" | "lose") {
+  // Set to revealing phase
+  gamePhaseAtom.set("revealing");
+
+  // Play appropriate sound
+  if (phase === "lose") {
+    playPreloadedSound("dead");
+  } else {
+    playPreloadedSound("success");
+  }
+
+  // Show all letters by adding them to chosen letters
+  const answer = answerAtom.get().toLowerCase();
+  const allLetters = new Set(
+    answer.split("").filter((char) => /[a-z]/.test(char)),
+  );
+  chosenLettersAtom.set(allLetters);
+
+  // After 2 seconds, show the dialog
+  setTimeout(() => {
+    gamePhaseAtom.set(phase);
+  }, 2000);
 }
 
 /**
@@ -83,7 +138,7 @@ function checkWinCondition() {
   );
 
   if (allFound) {
-    gamePhaseAtom.set("win");
+    revealAnswerThenSetPhase("win");
   }
 }
 

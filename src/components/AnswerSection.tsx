@@ -1,4 +1,8 @@
-import { answerAtom, chosenLettersAtom } from "@/atoms/gameAtoms";
+import {
+  answerAtom,
+  chosenLettersAtom,
+  gamePhaseAtom,
+} from "@/atoms/gameAtoms";
 import { initializeRandomGame } from "@/utils/game";
 import { useStore } from "@nanostores/react";
 
@@ -6,6 +10,9 @@ export default function AnswerSection() {
   const answer = useStore(answerAtom);
   const chosenLetters = useStore(chosenLettersAtom);
   const answerWords = answer.toUpperCase().split(" ");
+
+  const gamePhase = useStore(gamePhaseAtom);
+  console.log("gamePhase", gamePhase);
 
   // Check if a letter should be visible
   const isLetterVisible = (letter: string): boolean => {

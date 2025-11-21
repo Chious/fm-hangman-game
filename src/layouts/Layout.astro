@@ -44,6 +44,35 @@ const mobileImg = await getImage({ src: backgroundMobile });
   </body>
 </html>
 
+<script>
+  import { initBackgroundMusic, playBackgroundMusic } from "@/atoms/soundAtoms";
+
+  // Initialize background music after page loads (not first priority)
+  if (typeof window !== "undefined") {
+    // Defer initialization to not block critical resources
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        initBackgroundMusic();
+
+        // Try to autoplay, but it might be blocked by browser
+        const startMusic = () => {
+          playBackgroundMusic();
+          // Remove listeners after first interaction
+          document.removeEventListener("click", startMusic);
+          document.removeEventListener("keydown", startMusic);
+        };
+
+        // Try to play immediately
+        playBackgroundMusic();
+
+        // If blocked, wait for user interaction
+        document.addEventListener("click", startMusic, { once: true });
+        document.addEventListener("keydown", startMusic, { once: true });
+      }, 100);
+    });
+  }
+</script>
+
 <style>
   html,
   body {
