@@ -6,6 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name=hangman-game",
+    "deploy:production": "npm run build && wrangler pages deploy dist --project-name=hangman-game --branch=main",
     "astro": "astro"
   },
   "dependencies": {

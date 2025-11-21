@@ -17,7 +17,27 @@ export default defineConfig({
       },
     },
     plugins: [tailwindcss()],
+    build: {
+      // Optimize chunk splitting
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Separate vendor chunks
+            "react-vendor": ["react", "react-dom"],
+            nanostores: ["nanostores", "@nanostores/react"],
+          },
+        },
+      },
+    },
   },
 
   integrations: [react()],
+
+  // Enable compression
+  compressHTML: true,
+
+  // Build optimizations
+  build: {
+    inlineStylesheets: "auto",
+  },
 });

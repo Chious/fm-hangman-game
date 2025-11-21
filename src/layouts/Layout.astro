@@ -15,8 +15,21 @@ const mobileImg = await getImage({ src: backgroundMobile });
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Play the classic Hangman word guessing game online. Choose from multiple categories and test your vocabulary skills!"
+    />
+    <meta
+      name="keywords"
+      content="hangman, word game, puzzle game, vocabulary game, online game"
+    />
+
+    <!-- Favicons -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preload fonts -->
     <link
       rel="preload"
       href="/fonts/MouseMemoirs-Regular.ttf"
@@ -24,8 +37,9 @@ const mobileImg = await getImage({ src: backgroundMobile });
       type="font/ttf"
       crossorigin
     />
+
     <meta name="generator" content={Astro.generator} />
-    <title>Frontend Mentor | Hangman</title>
+    <title>Hangman Game - Classic Word Puzzle | Frontend Mentor</title>
   </head>
   <body class="relative min-h-screen w-full overflow-x-hidden">
     <slot />

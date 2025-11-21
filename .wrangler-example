@@ -1,0 +1,16 @@
+# Wrangler configuration example
+# This file shows how to configure Wrangler for Cloudflare Pages deployment
+# Copy this to wrangler.toml if you want to use it (optional)
+
+name = "hangman-game"
+compatibility_date = "2024-11-21"
+
+[env.production]
+name = "hangman-game"
+routes = [
+  { pattern = "hangman-game-3c1.pages.dev", zone_name = "pages.dev" }
+]
+
+# Note: Wrangler CLI works without this file for Pages deployment
+# The command `wrangler pages deploy dist --project-name=hangman-game` is sufficient
+

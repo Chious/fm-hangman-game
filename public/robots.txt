@@ -1,0 +1,18 @@
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+
+# Disallow crawling of build assets (not useful for search engines)
+Disallow: /_astro/
+
+# Allow crawling of main pages
+Allow: /main/
+Allow: /pick/
+Allow: /tutorial/
+
+# Sitemap location
+Sitemap: https://hangman-game-3c1.pages.dev/sitemap.xml
+
+# Crawl-delay (optional, helps prevent server overload)
+Crawl-delay: 1
+

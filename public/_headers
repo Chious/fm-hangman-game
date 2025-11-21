@@ -1,0 +1,24 @@
+# Cache static assets for 1 year
+/sounds/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages - cache for 1 hour
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Root index
+/
+  Cache-Control: public, max-age=3600, must-revalidate
+

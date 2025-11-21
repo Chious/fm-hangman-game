@@ -75,7 +75,13 @@ export default function GameNavbar({ isHPVisible = false }: GameNavbarProps) {
               style={{ width: `${hpPercentage}%` }}
             />
           </div>
-          <img src={heart.src} alt="hp" loading="eager"></img>
+          <img
+            src={heart.src}
+            alt="hp"
+            loading="eager"
+            width="26"
+            height="24"
+          ></img>
         </div>
       )}
     </nav>

@@ -117,7 +117,7 @@ function revealAnswerThenSetPhase(phase: "win" | "lose") {
   // After 2 seconds, show the dialog
   setTimeout(() => {
     gamePhaseAtom.set(phase);
-  }, 2000);
+  }, 5000);
 }
 
 /**
