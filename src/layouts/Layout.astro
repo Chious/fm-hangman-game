@@ -63,25 +63,25 @@ const mobileImg = await getImage({ src: backgroundMobile });
 
   // Initialize background music after page loads (not first priority)
   if (typeof window !== "undefined") {
+    let musicStarted = false;
+
     // Defer initialization to not block critical resources
     window.addEventListener("load", () => {
       setTimeout(() => {
         initBackgroundMusic();
 
-        // Try to autoplay, but it might be blocked by browser
+        // Wait for user interaction to start music (required by browsers)
         const startMusic = () => {
-          playBackgroundMusic();
-          // Remove listeners after first interaction
-          document.removeEventListener("click", startMusic);
-          document.removeEventListener("keydown", startMusic);
+          if (!musicStarted) {
+            playBackgroundMusic();
+            musicStarted = true;
+          }
         };
 
-        // Try to play immediately
-        playBackgroundMusic();
-
-        // If blocked, wait for user interaction
+        // Start music on first user interaction
         document.addEventListener("click", startMusic, { once: true });
         document.addEventListener("keydown", startMusic, { once: true });
+        document.addEventListener("touchstart", startMusic, { once: true });
       }, 100);
     });
   }

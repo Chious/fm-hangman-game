@@ -27,8 +27,8 @@ export function playBackgroundMusic() {
   const isMuted = isMutedAtom.get();
 
   if (bgMusic && !isMuted) {
-    bgMusic.play().catch((err) => {
-      console.log("Background music autoplay prevented:", err);
+    bgMusic.play().catch(() => {
+      // Autoplay prevented by browser, will play after user interaction
     });
   }
 }
@@ -52,8 +52,8 @@ export function toggleMute() {
     if (newMuted) {
       bgMusic.pause();
     } else {
-      bgMusic.play().catch((err) => {
-        console.log("Background music play prevented:", err);
+      bgMusic.play().catch(() => {
+        // Play prevented, will retry on next interaction
       });
     }
   }
@@ -89,7 +89,6 @@ export function initSoundEffects() {
       "canplaythrough",
       () => {
         deadSound.src = "/sounds/dead.wav";
-        console.log("Dead sound loaded (wav format)");
       },
       { once: true },
     );
@@ -98,10 +97,6 @@ export function initSoundEffects() {
       "error",
       () => {
         // Fallback: Use wrong-choice sound with lower pitch effect
-        console.warn(
-          "dead.wav not found - please convert 703542__yoshicakes77__dead.ogg to dead.wav",
-        );
-        console.warn("Temporary fallback: using wrong-choice sound");
         deadSound.src = "/sounds/476177__unadamlar__wrong-choice.wav";
         deadSound.playbackRate = 0.7; // Slower playback for different feel
       },
@@ -113,8 +108,6 @@ export function initSoundEffects() {
 
   tryLoadDeadSound();
   deadSoundAtom.set(deadSound);
-
-  console.log("Sound effects initialized");
 }
 
 // Play preloaded sound effect
@@ -140,8 +133,8 @@ export function playPreloadedSound(soundType: "success" | "wrong" | "dead") {
 
   if (sound) {
     sound.currentTime = 0; // Reset to start
-    sound.play().catch((err) => {
-      console.log(`${soundType} sound play prevented:`, err);
+    sound.play().catch(() => {
+      // Sound play prevented
     });
   }
 }
