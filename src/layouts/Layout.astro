@@ -4,6 +4,7 @@ import { Image, getImage } from "astro:assets";
 import backgroundDesktop from "@/assets/images/background-desktop.svg";
 import backgroundTablet from "@/assets/images/background-tablet.svg";
 import backgroundMobile from "@/assets/images/background-mobile.svg";
+import ClientRouter from "astro/components/ClientRouter.astro";
 
 const desktopImg = await getImage({ src: backgroundDesktop });
 const tabletImg = await getImage({ src: backgroundTablet });
@@ -16,6 +17,13 @@ const mobileImg = await getImage({ src: backgroundMobile });
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link
+      rel="preload"
+      href="/fonts/MouseMemoirs-Regular.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
     <meta name="generator" content={Astro.generator} />
     <title>Frontend Mentor | Hangman</title>
   </head>
@@ -32,6 +40,7 @@ const mobileImg = await getImage({ src: backgroundMobile });
         loading="eager"
       />
     </picture>
+    <ClientRouter />
   </body>
 </html>
 

@@ -1,6 +1,7 @@
 ---
 import Navbar from "@/components/Navbar.astro";
 import Layout from "@/layouts/Layout.astro";
+import CategoryPicker from "@/components/CategoryPicker";
 
 const OPTIONS = [
   "Movies",
@@ -15,19 +16,6 @@ const OPTIONS = [
 <Layout>
   <main class="container flex min-h-screen w-screen flex-col">
     <Navbar title="Pick a Category" />
-
-    <div
-      class="grid w-screen flex-1 grid-cols-1 gap-4 p-12 md:grid-cols-2 lg:grid-cols-3"
-    >
-      {
-        OPTIONS.map((v) => (
-          <a href="/main" rel="no-referer noopener">
-            <button class="text-preset-6 shadow-inner-btn2 h-full w-full rounded-2xl bg-blue-600 text-white duration-150 hover:scale-[1.05] hover:cursor-pointer hover:bg-blue-600/95">
-              {v}
-            </button>
-          </a>
-        ))
-      }
-    </div>
+    <CategoryPicker options={OPTIONS} client:only="react" />
   </main>
 </Layout>

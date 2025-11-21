@@ -1,6 +1,8 @@
 # Frontend Mentor - Hangman game solution
 
-This is a solution to the [Hangman game challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/hangman-game-rsQiSVLGWn). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [Hangman game challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/hangman-game-rsQiSVLGWn). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+
+這是 [Frontend Mentor 的 Hangman 遊戲挑戰](https://www.frontendmentor.io/challenges/hangman-game-rsQiSVLGWn)的解決方案。Frontend Mentor 挑戰透過建立真實專案來幫助你提升編程技能。
 
 ## Table of contents
 
@@ -11,12 +13,9 @@ This is a solution to the [Hangman game challenge on Frontend Mentor](https://ww
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
+  - [Technical Highlights](#technical-highlights)
   - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -41,7 +40,7 @@ Users should be able to:
 
 Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
 
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
+Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
 
 Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
 
@@ -56,64 +55,263 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ### Built with
 
+- **[Astro](https://astro.build/)** - Static Site Generator with View Transitions
+- **[React](https://reactjs.org/)** - For interactive components
+- **[Nanostores](https://github.com/nanostores/nanostores)** - Tiny state manager (286 bytes)
+- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
+- **TypeScript** - Type-safe development
 - Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
+- CSS Grid & Flexbox
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+### 使用技術
+
+- **[Astro](https://astro.build/)** - 靜態網站生成器，支援 View Transitions
+- **[React](https://reactjs.org/)** - 用於互動式元件
+- **[Nanostores](https://github.com/nanostores/nanostores)** - 輕量級狀態管理器（僅 286 bytes）
+- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS 框架
+- **TypeScript** - 型別安全開發
+- 語意化 HTML5 標記
+- CSS Grid 與 Flexbox
+- Mobile-first 工作流程
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+#### State Management with Nanostores
 
-To see how you can add code snippets, see below:
+Nanostores is an incredibly lightweight state manager that stores state purely in JavaScript memory (closures). This project demonstrates how to manage game state across multiple components without prop drilling.
 
-```html
-<h1>Some HTML code I'm proud of</h1>
+**Key learning:** Nanostores atoms live in memory and persist as long as the JavaScript execution environment remains active.
+
+```typescript
+// src/atoms/gameAtoms.ts
+import { atom } from "nanostores";
+
+export const categoryAtom = atom<string>("");
+export const answerAtom = atom<string>("");
+export const chosenLettersAtom = atom<Set<string>>(new Set());
+export const hpAtom = atom<number>(6);
 ```
-```css
-.proud-of-this-css {
-  color: papayawhip;
+
+#### Cross-Page State Preservation with View Transitions
+
+The biggest challenge was preserving state when navigating between pages. Traditional navigation (`window.location.href`) causes a full page reload, destroying all JavaScript state.
+
+**Solution:** Astro's View Transitions API enables client-side navigation, keeping the JavaScript environment alive and preserving Nanostores state in memory.
+
+> Reference: [View Transition: Maintain State](https://docs.astro.build/en/guides/view-transitions/)
+
+```astro
+---
+import { ClientRouter } from "astro:transitions";
+---
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+
+<ClientRouter />
+```
+
+```typescript
+// src/components/CategoryPicker.tsx
+import { navigate } from "astro:transitions/client";
+
+// Client-side navigation preserves state
+navigate("/main"); // ✅ State preserved in memory
+```
+
+**Why it works:**
+
+- View Transitions intercepts link clicks
+- Fetches new page content via `fetch()`
+- Updates DOM without reloading JavaScript
+- Nanostores atoms remain in memory
+
+---
+
+### 我學到了什麼
+
+#### 使用 Nanostores 進行狀態管理
+
+Nanostores 是一個極輕量的狀態管理器，將狀態純粹儲存在 JavaScript 記憶體（閉包）中。此專案展示如何在多個元件間管理遊戲狀態，而不需要 prop drilling。
+
+**關鍵學習：** Nanostores atoms 存在於記憶體中，只要 JavaScript 執行環境保持活躍就會持續存在。
+
+```typescript
+// src/atoms/gameAtoms.ts
+import { atom } from "nanostores";
+
+export const categoryAtom = atom<string>("");
+export const answerAtom = atom<string>("");
+export const chosenLettersAtom = atom<Set<string>>(new Set());
+export const hpAtom = atom<number>(6);
+```
+
+#### 使用 View Transitions 實現跨頁面狀態保留
+
+最大的挑戰是在頁面導航時保留狀態。傳統導航（`window.location.href`）會導致完整頁面重新載入，銷毀所有 JavaScript 狀態。
+
+**解決方案：** Astro 的 View Transitions API 啟用客戶端導航，保持 JavaScript 環境運行，並在記憶體中保留 Nanostores 狀態。
+
+```javascript
+// astro.config.mjs
+export default defineConfig({
+  viewTransitions: true, // 啟用客戶端路由
+});
+```
+
+```typescript
+// src/components/CategoryPicker.tsx
+import { navigate } from "astro:transitions/client";
+
+// 客戶端導航保留狀態
+navigate("/main"); // ✅ 狀態在記憶體中保留
+```
+
+**運作原理：**
+
+- View Transitions 攔截連結點擊
+- 透過 `fetch()` 獲取新頁面內容
+- 更新 DOM 而不重新載入 JavaScript
+- Nanostores atoms 保持在記憶體中
+
+### Technical Highlights
+
+#### Game Logic Architecture
+
+All game logic is centralized in `gameAtoms.ts`, following the principle of separating business logic from UI components:
+
+```typescript
+export function handleLetterPick(letter: string) {
+  const normalizedLetter = letter.toLowerCase().trim();
+
+  // Ignore if letter already chosen
+  const currentChosen = chosenLettersAtom.get();
+  if (currentChosen.has(normalizedLetter)) return;
+
+  // Add letter to chosen set
+  const newChosen = new Set(currentChosen);
+  newChosen.add(normalizedLetter);
+  chosenLettersAtom.set(newChosen);
+
+  // Check if letter is in answer
+  const answer = answerAtom.get().toLowerCase();
+  const isCorrect = answer.includes(normalizedLetter);
+
+  if (!isCorrect) {
+    // Wrong guess - decrease HP
+    const currentHp = hpAtom.get();
+    const newHp = Math.max(0, currentHp - 1);
+    hpAtom.set(newHp);
+
+    if (newHp === 0) {
+      gamePhaseAtom.set("lose");
+    }
+  }
+
+  checkWinCondition();
 }
 ```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+
+#### Avoiding Hydration Mismatches
+
+When using `client:only` directive with Astro, components render only on the client side, avoiding SSR hydration mismatches:
+
+```astro
+<!-- src/pages/main/index.astro -->
+<PickAlphabetSection options={alphabet} client:only="react" />
+<AnswerSection client:only="react" />
+<GameNavbar isHPVisible={true} client:only="react" />
+```
+
+---
+
+### 技術亮點
+
+#### 遊戲邏輯架構
+
+所有遊戲邏輯集中在 `gameAtoms.ts` 中，遵循將業務邏輯與 UI 元件分離的原則：
+
+```typescript
+export function handleLetterPick(letter: string) {
+  const normalizedLetter = letter.toLowerCase().trim();
+
+  // 忽略已選擇的字母
+  const currentChosen = chosenLettersAtom.get();
+  if (currentChosen.has(normalizedLetter)) return;
+
+  // 將字母加入已選集合
+  const newChosen = new Set(currentChosen);
+  newChosen.add(normalizedLetter);
+  chosenLettersAtom.set(newChosen);
+
+  // 檢查字母是否在答案中
+  const answer = answerAtom.get().toLowerCase();
+  const isCorrect = answer.includes(normalizedLetter);
+
+  if (!isCorrect) {
+    // 錯誤猜測 - 減少 HP
+    const currentHp = hpAtom.get();
+    const newHp = Math.max(0, currentHp - 1);
+    hpAtom.set(newHp);
+
+    if (newHp === 0) {
+      gamePhaseAtom.set("lose");
+    }
+  }
+
+  checkWinCondition();
 }
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+#### 避免 Hydration 不匹配
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+使用 Astro 的 `client:only` 指令時，元件僅在客戶端渲染，避免 SSR hydration 不匹配問題：
 
-### Continued development
-
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+```astro
+<!-- src/pages/main/index.astro -->
+<PickAlphabetSection options={alphabet} client:only="react" />
+<AnswerSection client:only="react" />
+<GameNavbar isHPVisible={true} client:only="react" />
+```
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- **[Nanostores Documentation](https://github.com/nanostores/nanostores)** - Essential guide for understanding how Nanostores stores state in JavaScript closures and manages subscriptions.
+- **[Astro View Transitions Guide](https://docs.astro.build/en/guides/view-transitions/)** - Comprehensive documentation on enabling client-side navigation to preserve JavaScript state across page transitions.
+- **[@nanostores/react](https://github.com/nanostores/react)** - React integration for Nanostores, providing the `useStore()` hook for reactive components.
+- **[Astro Client Directives](https://docs.astro.build/en/reference/directives-reference/#client-directives)** - Understanding `client:only`, `client:load`, and other directives for controlling component hydration.
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+### 有用的資源
+
+- **[Nanostores 文檔](https://github.com/nanostores/nanostores)** - 理解 Nanostores 如何在 JavaScript 閉包中儲存狀態並管理訂閱的必備指南。
+- **[Astro View Transitions 指南](https://docs.astro.build/en/guides/view-transitions/)** - 關於啟用客戶端導航以在頁面轉換時保留 JavaScript 狀態的完整文檔。
+- **[@nanostores/react](https://github.com/nanostores/react)** - Nanostores 的 React 整合，提供 `useStore()` hook 用於響應式元件。
+- **[Astro Client 指令](https://docs.astro.build/en/reference/directives-reference/#client-directives)** - 理解 `client:only`、`client:load` 等指令以控制元件 hydration。
+
+## Key Takeaways / 關鍵要點
+
+### English
+
+1. **Nanostores stores state in memory (JavaScript closures)** - State persists only as long as the JavaScript execution environment is active.
+2. **Traditional navigation destroys state** - `window.location.href` causes a full page reload, destroying all in-memory state.
+3. **View Transitions preserve state** - Client-side navigation keeps JavaScript running, maintaining Nanostores atoms in memory.
+4. **Separate logic from UI** - Keeping game logic in stores makes testing easier and UI framework-agnostic.
+5. **`client:only` prevents hydration issues** - Rendering components only on the client avoids SSR/client mismatches.
+
+### 繁體中文
+
+1. **Nanostores 將狀態存在記憶體中（JavaScript 閉包）** - 狀態僅在 JavaScript 執行環境活躍時持續存在。
+2. **傳統導航會銷毀狀態** - `window.location.href` 導致完整頁面重新載入，銷毀所有記憶體中的狀態。
+3. **View Transitions 保留狀態** - 客戶端導航保持 JavaScript 運行，維持 Nanostores atoms 在記憶體中。
+4. **將邏輯與 UI 分離** - 將遊戲邏輯保存在 stores 中使測試更容易，且不依賴特定 UI 框架。
+5. **`client:only` 防止 hydration 問題** - 僅在客戶端渲染元件可避免 SSR/客戶端不匹配。
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
 - Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
