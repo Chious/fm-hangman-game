@@ -72,31 +72,29 @@ const mobileImg = await getImage({ src: backgroundMobile });
     initSoundEffects,
   } from "@/atoms/soundAtoms";
 
-  // Initialize background music after page loads (not first priority)
-  if (typeof window !== "undefined") {
-    let musicStarted = false;
+  let musicStarted = false;
 
+  // Initialize sound effects on every page load (including View Transitions navigation)
+  document.addEventListener("astro:page-load", () => {
     // Defer initialization to not block critical resources
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        initBackgroundMusic();
-        initSoundEffects();
+    setTimeout(() => {
+      initBackgroundMusic();
+      initSoundEffects();
 
-        // Wait for user interaction to start music (required by browsers)
-        const startMusic = () => {
-          if (!musicStarted) {
-            playBackgroundMusic();
-            musicStarted = true;
-          }
-        };
+      // Wait for user interaction to start music (required by browsers)
+      const startMusic = () => {
+        if (!musicStarted) {
+          playBackgroundMusic();
+          musicStarted = true;
+        }
+      };
 
-        // Start music on first user interaction
-        document.addEventListener("click", startMusic, { once: true });
-        document.addEventListener("keydown", startMusic, { once: true });
-        document.addEventListener("touchstart", startMusic, { once: true });
-      }, 100);
-    });
-  }
+      // Start music on first user interaction
+      document.addEventListener("click", startMusic, { once: true });
+      document.addEventListener("keydown", startMusic, { once: true });
+      document.addEventListener("touchstart", startMusic, { once: true });
+    }, 100);
+  });
 </script>
 
 <style>

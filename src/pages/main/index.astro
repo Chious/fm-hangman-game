@@ -22,16 +22,18 @@ const alphabet = Array.from({ length: 26 }, (_, i) =>
 <script>
   import { initKeyboardListener } from "@/utils/keyboard";
 
-  // Initialize keyboard listener when page loads
-  if (typeof window !== "undefined") {
-    // Wait for the page to be fully loaded
-    window.addEventListener("load", () => {
-      const cleanup = initKeyboardListener();
+  let cleanup: (() => void) | undefined;
 
-      // Optional: Cleanup on page unload
-      window.addEventListener("beforeunload", () => {
-        if (cleanup) cleanup();
-      });
-    });
-  }
+  // Initialize keyboard listener on every page load (including View Transitions navigation)
+  document.addEventListener("astro:page-load", () => {
+    cleanup = initKeyboardListener();
+  });
+
+  // Cleanup when navigating away from this page
+  document.addEventListener("astro:before-preparation", () => {
+    if (cleanup) {
+      cleanup();
+      cleanup = undefined;
+    }
+  });
 </script>
