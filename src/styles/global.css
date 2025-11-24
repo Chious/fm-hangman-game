@@ -58,33 +58,104 @@
   /* Font Family */
   --font-family-mouse-memoirs: "Mouse Memoirs", sans-serif;
 
-  /* Font Sizes */
-  --font-size-preset-1: 136px;
-  --font-size-preset-2: 104px;
-  --font-size-preset-3: 94px;
-  --font-size-preset-4: 88px;
-  --font-size-preset-5: 64px;
-  --font-size-preset-6: 48px;
-  --font-size-preset-7: 40px;
-  --font-size-preset-8: 32px;
-  --font-size-preset-9: 26px;
-  --font-size-preset-10: 24px;
-  --font-size-preset-11: 20px;
-  --font-size-preset-12: 16px;
+  /* Font Sizes - Using clamp() for fluid typography */
+  /* Formula: clamp(min, preferred (min + growth based on viewport), max) */
+  /* Based on viewport range: 375px (mobile) → 1440px (desktop) */
+  --font-size-preset-1: clamp(4rem, 2rem + 8vw, 8.5rem); /* 64px → 136px */
+  --font-size-preset-2: clamp(
+    3.5rem,
+    1.5rem + 6.5vw,
+    6.5rem
+  ); /* 56px → 104px */
+  --font-size-preset-3: clamp(
+    3.25rem,
+    1.5rem + 5.875vw,
+    5.875rem
+  ); /* 52px → 94px */
+  --font-size-preset-4: clamp(
+    2.75rem,
+    1.25rem + 5.5vw,
+    5.5rem
+  ); /* 44px → 88px */
+  --font-size-preset-5: clamp(2.25rem, 1rem + 4vw, 4rem); /* 36px → 64px */
+  --font-size-preset-6: clamp(1.75rem, 0.75rem + 3vw, 3rem); /* 28px → 48px */
+  --font-size-preset-7: clamp(
+    1.5rem,
+    0.75rem + 2.5vw,
+    2.5rem
+  ); /* 24px → 40px */
+  --font-size-preset-8: clamp(1.25rem, 0.625rem + 2vw, 2rem); /* 20px → 32px */
+  --font-size-preset-9: clamp(
+    1.125rem,
+    0.5rem + 1.625vw,
+    1.625rem
+  ); /* 18px → 26px */
+  --font-size-preset-10: clamp(1rem, 0.5rem + 1.5vw, 1.5rem); /* 16px → 24px */
+  --font-size-preset-11: clamp(
+    0.875rem,
+    0.5rem + 1.25vw,
+    1.25rem
+  ); /* 14px → 20px */
+  --font-size-preset-12: clamp(0.875rem, 0.5rem + 1vw, 1rem); /* 14px → 16px */
 
-  /* Line Heights */
-  --line-height-preset-1: 163.2px;
-  --line-height-preset-2: 124.8px;
-  --line-height-preset-3: 112.8px;
-  --line-height-preset-4: 105.6px;
-  --line-height-preset-5: 76.8px;
-  --line-height-preset-6: 57.6px;
-  --line-height-preset-7: 48px;
-  --line-height-preset-8: 38.4px;
-  --line-height-preset-9: 31.2px;
-  --line-height-preset-10: 28.8px;
-  --line-height-preset-11: 24px;
-  --line-height-preset-12: 19.2px;
+  /* Line Heights - Using clamp() for fluid typography */
+  /* Maintains 1.2 ratio with font-size */
+  --line-height-preset-1: clamp(
+    4.8rem,
+    2.4rem + 9.6vw,
+    10.2rem
+  ); /* 76.8px → 163.2px */
+  --line-height-preset-2: clamp(
+    4.2rem,
+    1.8rem + 7.8vw,
+    7.8rem
+  ); /* 67.2px → 124.8px */
+  --line-height-preset-3: clamp(
+    3.9rem,
+    1.8rem + 7.05vw,
+    7.05rem
+  ); /* 62.4px → 112.8px */
+  --line-height-preset-4: clamp(
+    3.3rem,
+    1.5rem + 6.6vw,
+    6.6rem
+  ); /* 52.8px → 105.6px */
+  --line-height-preset-5: clamp(
+    2.7rem,
+    1.2rem + 4.8vw,
+    4.8rem
+  ); /* 43.2px → 76.8px */
+  --line-height-preset-6: clamp(
+    2.1rem,
+    0.9rem + 3.6vw,
+    3.6rem
+  ); /* 33.6px → 57.6px */
+  --line-height-preset-7: clamp(1.8rem, 0.9rem + 3vw, 3rem); /* 28.8px → 48px */
+  --line-height-preset-8: clamp(
+    1.5rem,
+    0.75rem + 2.4vw,
+    2.4rem
+  ); /* 24px → 38.4px */
+  --line-height-preset-9: clamp(
+    1.35rem,
+    0.6rem + 1.95vw,
+    1.95rem
+  ); /* 21.6px → 31.2px */
+  --line-height-preset-10: clamp(
+    1.2rem,
+    0.6rem + 1.8vw,
+    1.8rem
+  ); /* 19.2px → 28.8px */
+  --line-height-preset-11: clamp(
+    1.05rem,
+    0.6rem + 1.5vw,
+    1.5rem
+  ); /* 16.8px → 24px */
+  --line-height-preset-12: clamp(
+    1.05rem,
+    0.6rem + 1.2vw,
+    1.2rem
+  ); /* 16.8px → 19.2px */
 
   /* Letter Spacing */
   --letter-spacing-preset-1: -1px;
@@ -378,4 +449,12 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Keyboard interaction styles */
+.keyboard-pressed {
+  transform: scale(0.95) !important;
+  background-color: #2463ff !important;
+  color: white !important;
+  transition: all 0.1s ease-out !important;
 }

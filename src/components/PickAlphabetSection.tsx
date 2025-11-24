@@ -17,7 +17,7 @@ export default function PickAlphabetSection({
   const lastPickedLetter = useStore(lastPickedLetterAtom);
 
   return (
-    <div className="pick-up-section grid flex-1 grid-cols-9 items-center gap-2 p-12">
+    <div className="pick-up-section grid flex-1 grid-cols-6 items-center gap-2 p-4 sm:grid-cols-7 md:grid-cols-9 md:gap-2 md:p-12">
       <style>
         {`
           @keyframes flashButton {
@@ -34,7 +34,7 @@ export default function PickAlphabetSection({
         return (
           <button
             key={v}
-            className={`text-preset-8 rounded-2xl border-2 border-solid bg-white p-4 text-indigo-600 transition-all duration-150 hover:scale-[1.05] hover:bg-blue-600 disabled:scale-100 disabled:bg-white/20 ${
+            className={`text-preset-8 rounded-2xl border-2 border-solid bg-white p-3 text-indigo-600 transition-all duration-150 hover:scale-[1.05] hover:bg-blue-600 disabled:scale-100 disabled:bg-white/20 md:p-4 ${
               shouldFlash && lastPickResult === "correct"
                 ? "border-green-400 shadow-lg ring-4 shadow-green-400/50 ring-green-400"
                 : shouldFlash && lastPickResult === "wrong"

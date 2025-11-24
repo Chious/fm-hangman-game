@@ -3,14 +3,13 @@ import PickAlphabetSection from "@/components/PickAlphabetSection";
 import Layout from "@/layouts/Layout.astro";
 import AnswerSection from "@/components/AnswerSection";
 import GameNavbar from "@/components/GameNavbar";
-import GameDialogManager from "@/components/GameDialogManager";
 
 const alphabet = Array.from({ length: 26 }, (_, i) =>
   String.fromCharCode(97 + i),
 );
 ---
 
-<Layout>
+<Layout title="Game">
   <main class="flex min-h-screen w-full flex-col">
     <GameNavbar isHPVisible={true} client:only="react" />
 
@@ -21,14 +20,18 @@ const alphabet = Array.from({ length: 26 }, (_, i) =>
 </Layout>
 
 <script>
-  import { initSoundEffects } from "@/atoms/soundAtoms";
+  import { initKeyboardListener } from "@/utils/keyboard";
 
-  // Initialize and preload sound effects after page loads
+  // Initialize keyboard listener when page loads
   if (typeof window !== "undefined") {
+    // Wait for the page to be fully loaded
     window.addEventListener("load", () => {
-      setTimeout(() => {
-        initSoundEffects();
-      }, 100);
+      const cleanup = initKeyboardListener();
+
+      // Optional: Cleanup on page unload
+      window.addEventListener("beforeunload", () => {
+        if (cleanup) cleanup();
+      });
     });
   }
 </script>

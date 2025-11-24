@@ -44,11 +44,11 @@ export default function AnswerSection() {
   }
 
   return (
-    <div className="answer-section flex w-full flex-1 flex-col justify-center gap-4">
+    <div className="answer-section flex w-full flex-1 flex-col justify-center gap-2 px-4 md:gap-4 md:px-0">
       {answerWords.map((word, wordIndex) => (
         <div
           key={`word-${wordIndex}-${word}`}
-          className="flex justify-center gap-2"
+          className="flex flex-wrap justify-center gap-1 md:gap-2"
         >
           {Array.from(word).map((letter, letterIndex) => {
             const visible = isLetterVisible(letter);
@@ -56,7 +56,7 @@ export default function AnswerSection() {
             return (
               <button
                 key={`letter-${wordIndex}-${letterIndex}-${letter}`}
-                className="text-preset-8 min-w-16 rounded-2xl bg-blue-600 px-4 py-2 text-white hover:cursor-pointer disabled:bg-blue-600/20"
+                className="text-preset-8 min-w-10 rounded-2xl bg-blue-600 px-2 py-2 text-white hover:cursor-pointer disabled:bg-blue-600/20 md:min-w-16 md:px-4"
                 disabled
               >
                 {visible ? letter : "\u00A0"}

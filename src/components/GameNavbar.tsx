@@ -64,11 +64,17 @@ export default function GameNavbar({ isHPVisible = false }: GameNavbarProps) {
           )}
         </button>
       </div>
-      <h1 className="text-preset-7 md:text-preset-4 lg:text-preset-1 text-gradient-2 flex-1 stroke-slate-600 text-center">
+      <h1 className="text-preset-4 text-gradient-2 flex-1 stroke-slate-600 text-center">
         {category || "Pick a Category"}
       </h1>
       {isHPVisible && (
-        <div className="flex w-60 items-center gap-4">
+        <div
+          className="flex items-center"
+          style={{
+            width: "clamp(8rem, 6rem + 8vw, 15rem)", // 128px → 240px 流暢過渡
+            gap: "clamp(0.5rem, 0.25rem + 1vw, 1rem)", // 8px → 16px 流暢過渡
+          }}
+        >
           <div className="flex-1 rounded-2xl bg-white p-2">
             <div
               className="h-3 rounded-full bg-indigo-600 transition-all duration-300"

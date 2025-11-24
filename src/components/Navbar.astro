@@ -15,12 +15,10 @@ const { title, isHPVislble = false } = Astro.props;
   <a href="/" rel="no-referer noopener">
     <IconButton
       variant="back"
-      class="hover:scale-[1.05] hover:cursor-pointer"
+      class="scale-90 hover:scale-[1.05] hover:cursor-pointer"
     />
   </a>
-  <h1
-    class="text-preset-4 md:text-preset-4 lg:text-preset-1 text-gradient-2 flex-1 stroke-slate-600 text-center"
-  >
+  <h1 class="text-preset-4 text-gradient-2 flex-1 stroke-slate-600 text-center">
     {title || ""}
   </h1>
   {

@@ -1,7 +1,5 @@
 ---
-import IconButton from "@/components/IconButton.astro";
 import Navbar from "@/components/Navbar.astro";
-import StepCard from "@/components/StepCard.astro";
 import Layout from "@/layouts/Layout.astro";
 
 const STEPS = {
@@ -25,14 +23,14 @@ const STEPS = {
 const stepsArray = Object.entries(STEPS);
 ---
 
-<Layout>
+<Layout title="How to Play">
   <Navbar title="How to Play" />
 
-  <div class="grid grid-cols-1 gap-4 p-12 md:grid-cols-3">
+  <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-3 md:p-12">
     {
       stepsArray.map(([step, data]) => (
-        <div class="flex flex-row items-center justify-start gap-8 rounded-4xl border border-solid border-black bg-white p-8 md:flex-col">
-          <div class="text-preset-4 mb-4 text-blue-600">{step}</div>
+        <div class="flex flex-col items-center justify-start gap-4 rounded-4xl border border-solid border-black bg-white p-6 md:gap-8 md:p-8">
+          <div class="text-preset-4 text-blue-600">{step}</div>
           <div>
             <h2 class="text-preset-6 mb-4 text-center text-indigo-600">
               {data.title}

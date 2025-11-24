@@ -94,7 +94,7 @@ export default function GameDialog({ isOpen, onClose }: GameDialogProps) {
     <dialog
       ref={dialogRef}
       onClick={handleDialogClick}
-      className="fixed top-1/2 left-1/2 m-0 h-fit max-h-[80vh] w-[440px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border-none bg-indigo-600 px-8 py-20 shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm"
+      className="shadow-inner-bg fixed top-1/2 left-1/2 m-0 h-fit max-h-[80vh] w-[440px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border-none bg-indigo-600 px-8 py-20 backdrop:bg-black/60 backdrop:backdrop-blur-sm"
     >
       <h2 className="text-preset-3 text-gradient-2 text-stroke text-stroke-4 text-stroke-color-243041 absolute -top-16 left-1/2 -translate-x-1/2 whitespace-nowrap">
         {getDialogTitle()}

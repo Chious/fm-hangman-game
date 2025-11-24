@@ -6,6 +6,12 @@ import backgroundTablet from "@/assets/images/background-tablet.svg";
 import backgroundMobile from "@/assets/images/background-mobile.svg";
 import ClientRouter from "astro/components/ClientRouter.astro";
 
+interface Props {
+  title?: string;
+}
+
+const { title = "Hangman Game - Classic Word Puzzle" } = Astro.props;
+
 const desktopImg = await getImage({ src: backgroundDesktop });
 const tabletImg = await getImage({ src: backgroundTablet });
 const mobileImg = await getImage({ src: backgroundMobile });
@@ -24,6 +30,7 @@ const mobileImg = await getImage({ src: backgroundMobile });
       name="keywords"
       content="hangman, word game, puzzle game, vocabulary game, online game"
     />
+    <meta name="generator" content={Astro.generator} />
 
     <!-- Favicons -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
@@ -39,7 +46,7 @@ const mobileImg = await getImage({ src: backgroundMobile });
     />
 
     <meta name="generator" content={Astro.generator} />
-    <title>Hangman Game - Classic Word Puzzle | Frontend Mentor</title>
+    <title>{title} | Hangman Game | Frontend Mentor</title>
   </head>
   <body class="relative min-h-screen w-full overflow-x-hidden">
     <slot />
@@ -59,7 +66,11 @@ const mobileImg = await getImage({ src: backgroundMobile });
 </html>
 
 <script>
-  import { initBackgroundMusic, playBackgroundMusic } from "@/atoms/soundAtoms";
+  import {
+    initBackgroundMusic,
+    playBackgroundMusic,
+    initSoundEffects,
+  } from "@/atoms/soundAtoms";
 
   // Initialize background music after page loads (not first priority)
   if (typeof window !== "undefined") {
@@ -69,6 +80,7 @@ const mobileImg = await getImage({ src: backgroundMobile });
     window.addEventListener("load", () => {
       setTimeout(() => {
         initBackgroundMusic();
+        initSoundEffects();
 
         // Wait for user interaction to start music (required by browsers)
         const startMusic = () => {
